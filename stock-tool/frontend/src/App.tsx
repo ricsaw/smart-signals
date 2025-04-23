@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import axios from 'axios';
 import 'chart.js/auto';
+import { ResizableBox } from 'react-resizable'; // Import resizable box
+import 'react-resizable/css/styles.css'; // Import necessary styles
 
 function App() {
   const [prices, setPrices] = useState<number[]>([]);
@@ -74,14 +76,13 @@ function App() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-      <div className="w-full max-w-2xl bg-white rounded-xl shadow p-6">
+      <div className="w-full max-w-5xl bg-white rounded-xl shadow p-6">
         <h1 className="text-xl font-semibold mb-4 text-center">
           {ticker ? `${ticker} Stock Data` : 'Stock Data Viewer'} {/* Static title, dynamic ticker */}
         </h1>
 
         {/* Ticker input field */}
         <div className="mb-4">
-          <h2 className="text-lg font-semibold mb-2">Ticker</h2>
           <input
             type="text"
             value={ticker}
@@ -93,7 +94,6 @@ function App() {
 
         {/* Range selector */}
         <div className="mb-4">
-          <h2 className="text-lg font-semibold mb-2">Time Range</h2>
           <select
             value={range}
             onChange={handleRangeChange}
@@ -113,7 +113,6 @@ function App() {
 
         {/* Interval selector */}
         <div className="mb-4">
-          <h2 className="text-lg font-semibold mb-2">Time Interval</h2>
           <select
             value={interval}
             onChange={handleIntervalChange}
@@ -134,104 +133,107 @@ function App() {
         {/* Error message */}
         {error && <p className="text-red-500 text-center">{error}</p>}
 
-        {/* Price and SMA Chart */}
-        <div className="mt-8">
-          <Line
-            data={{
-              labels,
-              datasets: [
-                {
-                  label: 'Price',
-                  data: prices,
-                  borderColor: 'rgba(75, 192, 192, 1)',
-                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                  fill: true,
-                },
-                {
-                  label: '50-Hour SMA',
-                  data: sma50,
-                  borderColor: 'rgba(255, 159, 64, 1)',
-                  backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                  fill: false,
-                  borderWidth: 2,
-                },
-                {
-                  label: '200-Hour SMA',
-                  data: sma200,
-                  borderColor: 'rgba(153, 102, 255, 1)',
-                  backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                  fill: false,
-                  borderWidth: 2,
-                },
-              ],
-            }}
-            options={{
-              responsive: true,
-              scales: {
-                y: {
-                  beginAtZero: false,
-                  title: {
-                    display: true,
-                    text: 'Price (USD)',
+        {/* Resizable Price and SMA Chart */}
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold text-center mb-4">Price and Moving Averages</h2>
+          <ResizableBox width={600} height={400} minConstraints={[300, 200]} maxConstraints={[900, 600]}>
+            <Line
+              data={{
+                labels,
+                datasets: [
+                  {
+                    label: 'Price',
+                    data: prices,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                  },
+                  {
+                    label: '50-Hour SMA',
+                    data: sma50,
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    fill: false,
+                    borderWidth: 2,
+                  },
+                  {
+                    label: '200-Hour SMA',
+                    data: sma200,
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    fill: false,
+                    borderWidth: 2,
+                  },
+                ],
+              }}
+              options={{
+                responsive: true,
+                scales: {
+                  y: {
+                    beginAtZero: false,
+                    title: {
+                      display: true,
+                      text: 'Price (USD)',
+                    },
+                  },
+                  x: {
+                    title: {
+                      display: true,
+                      text: 'Date/Time',
+                    },
+                    ticks: {
+                      autoSkip: true,
+                      maxTicksLimit: 15,
+                    },
                   },
                 },
-                x: {
-                  title: {
-                    display: true,
-                    text: 'Date/Time',
-                  },
-                  ticks: {
-                    autoSkip: true,
-                    maxTicksLimit: 15, // Limit number of labels to avoid overcrowding
+                plugins: {
+                  legend: {
+                    position: 'top',
                   },
                 },
-              },
-              plugins: {
-                legend: {
-                  position: 'top',
-                },
-              },
-            }}
-            height={400} // Increase chart height
-          />
+              }}
+            />
+          </ResizableBox>
         </div>
 
         {/* Volume Chart */}
         <div className="mt-8">
-          <h2 className="text-lg font-semibold mb-4 text-center">Volume</h2>
-          <Line
-            data={{
-              labels,
-              datasets: [
-                {
-                  label: 'Volume',
-                  data: volume,
-                  borderColor: 'rgba(153, 102, 255, 1)',
-                  backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                  fill: true,
-                },
-              ],
-            }}
-            options={{
-              responsive: true,
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  title: {
-                    display: true,
-                    text: 'Volume',
+          <h2 className="text-lg font-semibold text-center mb-4">Volume</h2>
+          <ResizableBox width={600} height={300} minConstraints={[300, 200]} maxConstraints={[900, 600]}>
+            <Line
+              data={{
+                labels,
+                datasets: [
+                  {
+                    label: 'Volume',
+                    data: volume,
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    fill: true,
+                  },
+                ],
+              }}
+              options={{
+                responsive: true,
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    title: {
+                      display: true,
+                      text: 'Volume',
+                    },
+                  },
+                  x: {
+                    title: {
+                      display: true,
+                      text: 'Date/Time',
+                    },
                   },
                 },
-                x: {
-                  title: {
-                    display: true,
-                    text: 'Date/Time',
-                  },
-                },
-              },
-            }}
-            height={400} // Increase chart height
-          />
+              }}
+            />
+          </ResizableBox>
         </div>
       </div>
     </div>

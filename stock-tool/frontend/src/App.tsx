@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     // Fetch stock data with the selected range and interval
     axios
-      .get(`http://localhost:3001/api/stock/${ticker}`, {
+      .get(`https://smart-signals.onrender.com/api/stock/${ticker}`, {
         params: { range, interval } // Use selected range and interval
       })
       .then((res) => {

@@ -81,6 +81,7 @@ function App() {
 
         {/* Ticker input field */}
         <div className="mb-4">
+          <h2 className="text-lg font-semibold mb-2">Ticker</h2>
           <input
             type="text"
             value={ticker}
@@ -92,6 +93,7 @@ function App() {
 
         {/* Range selector */}
         <div className="mb-4">
+          <h2 className="text-lg font-semibold mb-2">Time Range</h2>
           <select
             value={range}
             onChange={handleRangeChange}
@@ -111,6 +113,7 @@ function App() {
 
         {/* Interval selector */}
         <div className="mb-4">
+          <h2 className="text-lg font-semibold mb-2">Time Interval</h2>
           <select
             value={interval}
             onChange={handleIntervalChange}
@@ -132,63 +135,66 @@ function App() {
         {error && <p className="text-red-500 text-center">{error}</p>}
 
         {/* Price and SMA Chart */}
-        <Line
-          data={{
-            labels,
-            datasets: [
-              {
-                label: 'Price',
-                data: prices,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                fill: true,
-              },
-              {
-                label: '50-Hour SMA',
-                data: sma50,
-                borderColor: 'rgba(255, 159, 64, 1)',
-                backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                fill: false,
-                borderWidth: 2,
-              },
-              {
-                label: '200-Hour SMA',
-                data: sma200,
-                borderColor: 'rgba(153, 102, 255, 1)',
-                backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                fill: false,
-                borderWidth: 2,
-              },
-            ],
-          }}
-          options={{
-            responsive: true,
-            scales: {
-              y: {
-                beginAtZero: false,
-                title: {
-                  display: true,
-                  text: 'Price (USD)',
+        <div className="mt-8">
+          <Line
+            data={{
+              labels,
+              datasets: [
+                {
+                  label: 'Price',
+                  data: prices,
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  fill: true,
+                },
+                {
+                  label: '50-Hour SMA',
+                  data: sma50,
+                  borderColor: 'rgba(255, 159, 64, 1)',
+                  backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                  fill: false,
+                  borderWidth: 2,
+                },
+                {
+                  label: '200-Hour SMA',
+                  data: sma200,
+                  borderColor: 'rgba(153, 102, 255, 1)',
+                  backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                  fill: false,
+                  borderWidth: 2,
+                },
+              ],
+            }}
+            options={{
+              responsive: true,
+              scales: {
+                y: {
+                  beginAtZero: false,
+                  title: {
+                    display: true,
+                    text: 'Price (USD)',
+                  },
+                },
+                x: {
+                  title: {
+                    display: true,
+                    text: 'Date/Time',
+                  },
+                  ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 15, // Limit number of labels to avoid overcrowding
+                  },
                 },
               },
-              x: {
-                title: {
-                  display: true,
-                  text: 'Date/Time',
-                },
-                ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 15, // Limit number of labels to avoid overcrowding
+              plugins: {
+                legend: {
+                  position: 'top',
                 },
               },
-            },
-            plugins: {
-              legend: {
-                position: 'top',
-              },
-            },
-          }}
-        />
+            }}
+            height={400} // Increase chart height
+          />
+        </div>
 
         {/* Volume Chart */}
         <div className="mt-8">
@@ -224,6 +230,7 @@ function App() {
                 },
               },
             }}
+            height={400} // Increase chart height
           />
         </div>
       </div>

@@ -38,7 +38,7 @@ function App() {
 
         setError(null);
       })
-      .catch((err) => {
+      .catch(() => {
         setError('Failed to fetch stock data');
       });
   }, [ticker, range, interval]); // Re-fetch data when range or interval changes

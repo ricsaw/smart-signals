@@ -9,16 +9,18 @@ function App() {
   const [volume, setVolume] = useState<number[]>([]);
   const [sma50, setSma50] = useState<number[]>([]); // 50-hour Simple Moving Average (SMA)
   const [sma200, setSma200] = useState<number[]>([]); // 200-hour Simple Moving Average (SMA)
-  const [ticker, setTicker] = useState<string>('AAPL');
+  const [ticker, setTicker] = useState<string>(''); // Default to no ticker
   const [error, setError] = useState<string | null>(null);
   const [range, setRange] = useState<string>('30d'); // Default to 30-day range
-  const [interval, setInterval] = useState<string>('30m'); // Default to 1-minute interval
+  const [interval, setInterval] = useState<string>('30m'); // Default to 30-minute interval
 
   useEffect(() => {
+    if (!ticker) return; // Don't fetch data if no ticker is provided
+    
     // Fetch stock data with the selected range and interval
     axios
       .get(`https://smart-signals.onrender.com/api/stock/${ticker}`, {
-        params: { range, interval } // Use selected range and interval
+        params: { range, interval }
       })
       .then((res) => {
         const { prices, timestamps, volumes } = res.data;
@@ -74,7 +76,7 @@ function App() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
       <div className="w-full max-w-2xl bg-white rounded-xl shadow p-6">
         <h1 className="text-xl font-semibold mb-4 text-center">
-          {ticker} {range} {interval} Price & Volume Chart
+          {ticker ? `${ticker} Stock Data` : 'Stock Data Viewer'} {/* Static title, dynamic ticker */}
         </h1>
 
         {/* Ticker input field */}

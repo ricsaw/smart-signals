@@ -12,7 +12,7 @@ function App() {
   const [ticker, setTicker] = useState<string>('AAPL');
   const [error, setError] = useState<string | null>(null);
   const [range, setRange] = useState<string>('30d'); // Default to 30-day range
-  const [interval, setInterval] = useState<string>('1m'); // Default to 1-minute interval
+  const [interval, setInterval] = useState<string>('30m'); // Default to 1-minute interval
 
   useEffect(() => {
     // Fetch stock data with the selected range and interval
@@ -119,7 +119,6 @@ function App() {
             <option value="5m">5 Minutes</option>
             <option value="15m">15 Minutes</option>
             <option value="30m">30 Minutes</option>
-            <option value="60m">60 Minutes</option>
             <option value="1h">1 Hour</option>
             <option value="1d">1 Day</option>
             <option value="5d">5 Days</option>

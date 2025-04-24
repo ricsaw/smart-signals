@@ -619,7 +619,7 @@ function App() {
           <ResizableBox
             width={600}
             height={200}
-            minConstraints={[300, 150]}
+            minConstraints={[300, 200]}
             maxConstraints={[900, 300]}
           >
             <Line

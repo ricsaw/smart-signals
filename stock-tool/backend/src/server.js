@@ -36,45 +36,20 @@ app.get('/api/stock/:ticker', async (req, res) => {
     }
 
     try {
-        // Fetch stock price data
-        const stockResponse = await axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=${range}&interval=${interval}`);
-        const chartData = stockResponse.data.chart.result[0];
-
-        if (!chartData) {
-            return res.status(500).json({ error: `No stock data found for ticker: ${ticker}` });
-        }
+        const response = await axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=${range}&interval=${interval}`);
+        const chartData = response.data.chart.result[0];
 
         const prices = chartData.indicators.quote[0].close;
         const timestamps = chartData.timestamp;
         const volumes = chartData.indicators.quote[0].volume || [];
 
-        // Fetch options data
-        const optionsResponse = await axios.get(`https://query1.finance.yahoo.com/v7/finance/options/${ticker}`);
-        const optionsData = optionsResponse.data.optionChain.result[0];
-
-        if (!optionsData) {
-            return res.status(500).json({ error: `No options data found for ticker: ${ticker}` });
-        }
-
-        // Extract expiration dates and options (calls/puts)
-        const expirationDates = optionsData.expirationDates;
-        const options = optionsData.options;
-
-        // Send combined data: stock prices + options data
-        res.json({
-            prices,
-            timestamps,
-            volumes,
-            expirationDates,
-            options
-        });
-
+        res.json({ prices, timestamps, volumes });
     } catch (err) {
-        console.error("Error details:", err.response || err); // Log the error response from axios
-        res.status(500).json({ error: 'Failed to fetch stock or options data', details: err.message });
+        console.error(err);
+        res.status(500).json({ error: 'Failed to fetch stock data' });
     }
 });
 
 app.listen(3001, () => {
-    console.log('✅ Backend running at http://localhost:3001');
+  console.log('✅ Backend running at http://localhost:3001');
 });

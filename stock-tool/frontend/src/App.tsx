@@ -268,7 +268,6 @@ function App() {
           borderColor: 'rgba(255, 159, 64, 1)',
           backgroundColor: 'transparent',
           fill: false,
-          borderWidth: 2,
         },
         {
           label: '200-Period SMA',
@@ -276,7 +275,6 @@ function App() {
           borderColor: 'rgba(153, 102, 255, 1)',
           backgroundColor: 'transparent',
           fill: false,
-          borderWidth: 2,
         }
       );
     }
@@ -289,8 +287,6 @@ function App() {
           borderColor: 'rgba(255, 99, 132, 1)',
           backgroundColor: 'transparent',
           fill: false,
-          borderWidth: 1,
-          borderDash: [5, 5],
         },
         {
           label: 'Bollinger Middle',
@@ -298,16 +294,13 @@ function App() {
           borderColor: 'rgba(255, 99, 132, 0.7)',
           backgroundColor: 'transparent',
           fill: false,
-          borderWidth: 1,
         },
         {
           label: 'Bollinger Lower',
           data: bollingerBands.lower,
           borderColor: 'rgba(255, 99, 132, 1)',
           backgroundColor: 'rgba(255, 99, 132, 0.1)',
-          fill: '+1', // Fill between this dataset and the previous one
-          borderWidth: 1,
-          borderDash: [5, 5],
+          fill: true,
         }
       );
     }

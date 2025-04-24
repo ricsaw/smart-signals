@@ -247,7 +247,7 @@ function App() {
 
     return { upper, middle, lower };
   };
-
+  
   // Get price chart datasets based on active indicators
   const getPriceChartDatasets = () => {
     const datasets = [

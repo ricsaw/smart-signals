@@ -68,6 +68,6 @@ button:focus-visible {
 }
 
 .react-resizable-handle { /* Replace with the actual class name */
-  background-color: white !important; /* Use !important to ensure override */
+  color: white
 }
 

@@ -475,9 +475,9 @@ function App() {
             <h2 className="text-lg font-semibold text-center mb-4">RSI (14)</h2>
             <ResizableBox
               width={600}
-              height={200}
-              minConstraints={[300, 150]}
-              maxConstraints={[900, 300]}
+              height={400}
+              minConstraints={[300, 200]}
+              maxConstraints={[900, 600]}
             >
               <Line
                 data={{
@@ -544,9 +544,9 @@ function App() {
             <h2 className="text-lg font-semibold text-center mb-4">MACD (12, 26, 9)</h2>
             <ResizableBox
               width={600}
-              height={200}
-              minConstraints={[300, 150]}
-              maxConstraints={[900, 300]}
+              height={400}
+              minConstraints={[300, 200]}
+              maxConstraints={[900, 600]}
             >
               <Line
                 data={{

@@ -11,8 +11,6 @@ function App() {
   const [volume, setVolume] = useState<number[]>([]);
   const [sma50, setSma50] = useState<number[]>([]); // 50-hour Simple Moving Average (SMA)
   const [sma200, setSma200] = useState<number[]>([]); // 200-hour Simple Moving Average (SMA)
-  const [optionsPrices, setOptionsPrices] = useState<number[]>([]); // Option prices (Call/Puts)
-  const [optionLabels, setOptionLabels] = useState<string[]>([]); // Option timestamps
   const [ticker, setTicker] = useState<string>(''); // Default to no ticker
   const [error, setError] = useState<string | null>(null);
   const [range, setRange] = useState<string>('30d'); // Default to 30-day range
@@ -249,55 +247,6 @@ function App() {
                       display: true,
                       text: 'Date/Time',
                     },
-                  },
-                },
-              }}
-            />
-          </ResizableBox>
-        </div>
-
-        {/* Option Chart */}
-        <div className="mt-8">
-          <h2 className="text-lg font-semibold text-center mb-4">Options Prices</h2>
-          <ResizableBox
-            width={600}
-            height={300}
-            minConstraints={[300, 200]}
-            maxConstraints={[900, 600]}
-          >
-            <Line
-              data={{
-                labels: optionLabels,
-                datasets: [
-                  {
-                    label: 'Option Prices',
-                    data: optionsPrices,
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    fill: true,
-                  },
-                ],
-              }}
-              options={{
-                responsive: true,
-                scales: {
-                  y: {
-                    beginAtZero: false,
-                    title: {
-                      display: true,
-                      text: 'Price (USD)',
-                    },
-                  },
-                  x: {
-                    title: {
-                      display: true,
-                      text: 'Date/Time',
-                    },
-                  },
-                },
-                plugins: {
-                  legend: {
-                    position: 'top',
                   },
                 },
               }}

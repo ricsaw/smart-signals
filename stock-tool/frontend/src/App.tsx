@@ -83,7 +83,9 @@ function App() {
 
         {/* Ticker input field */}
         <div className="mb-4">
+          <label htmlFor="ticker" className="block text-sm font-medium mb-2">Enter Ticker:</label>
           <input
+            id="ticker"
             type="text"
             value={ticker}
             onChange={handleTickerChange}
@@ -94,7 +96,9 @@ function App() {
 
         {/* Range selector */}
         <div className="mb-4">
+          <label htmlFor="range" className="block text-sm font-medium mb-2">Select Date Range:</label>
           <select
+            id="range"
             value={range}
             onChange={handleRangeChange}
             className="w-full p-2 border rounded"
@@ -113,7 +117,9 @@ function App() {
 
         {/* Interval selector */}
         <div className="mb-4">
+          <label htmlFor="interval" className="block text-sm font-medium mb-2">Select Interval:</label>
           <select
+            id="interval"
             value={interval}
             onChange={handleIntervalChange}
             className="w-full p-2 border rounded"
@@ -136,7 +142,12 @@ function App() {
         {/* Resizable Price and SMA Chart */}
         <div className="mt-6">
           <h2 className="text-lg font-semibold text-center mb-4">Price and Moving Averages</h2>
-          <ResizableBox width={600} height={400} minConstraints={[300, 200]} maxConstraints={[900, 600]}>
+          <ResizableBox
+            width={600}
+            height={400}
+            minConstraints={[300, 200]}
+            maxConstraints={[900, 600]}
+          >
             <Line
               data={{
                 labels,
@@ -200,7 +211,12 @@ function App() {
         {/* Volume Chart */}
         <div className="mt-8">
           <h2 className="text-lg font-semibold text-center mb-4">Volume</h2>
-          <ResizableBox width={600} height={300} minConstraints={[300, 200]} maxConstraints={[900, 600]}>
+          <ResizableBox
+            width={600}
+            height={300}
+            minConstraints={[300, 200]}
+            maxConstraints={[900, 600]}
+          >
             <Line
               data={{
                 labels,

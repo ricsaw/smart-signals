@@ -377,9 +377,7 @@ function App() {
             <button
               onClick={() => toggleIndicator('sma')}
               className={`px-3 py-1 rounded text-sm ${
-                activeIndicators.sma 
-                  ? 'bg-blue-500 text-white' 
-                  : 'bg-gray-200 text-gray-700'
+                activeIndicators.sma ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
               }`}
             >
               SMA
@@ -387,9 +385,7 @@ function App() {
             <button
               onClick={() => toggleIndicator('bollinger')}
               className={`px-3 py-1 rounded text-sm ${
-                activeIndicators.bollinger 
-                  ? 'bg-blue-500 text-white' 
-                  : 'bg-gray-200 text-gray-700'
+                activeIndicators.bollinger ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
               }`}
             >
               Bollinger Bands
@@ -397,9 +393,7 @@ function App() {
             <button
               onClick={() => toggleIndicator('rsi')}
               className={`px-3 py-1 rounded text-sm ${
-                activeIndicators.rsi 
-                  ? 'bg-blue-500 text-white' 
-                  : 'bg-gray-200 text-gray-700'
+                activeIndicators.rsi ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
               }`}
             >
               RSI
@@ -407,15 +401,14 @@ function App() {
             <button
               onClick={() => toggleIndicator('macd')}
               className={`px-3 py-1 rounded text-sm ${
-                activeIndicators.macd 
-                  ? 'bg-blue-500 text-white' 
-                  : 'bg-gray-200 text-gray-700'
+                activeIndicators.macd ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
               }`}
             >
               MACD
             </button>
           </div>
         </div>
+
 
         {/* Error message */}
         {error && <p className="text-red-500 text-center">{error}</p>}

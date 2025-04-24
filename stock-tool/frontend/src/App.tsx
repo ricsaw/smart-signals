@@ -15,7 +15,6 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [range, setRange] = useState<string>('30d'); // Default to 30-day range
   const [interval, setInterval] = useState<string>('30m'); // Default to 30-minute interval
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false); // State for dark mode
 
   useEffect(() => {
     if (!ticker) return; // Don't fetch data if no ticker is provided
@@ -75,18 +74,9 @@ function App() {
     return sma;
   };
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    if (!isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  };
-
   return (
-    <div className={`min-h-screen flex items-center justify-center p-6 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
-      <div className={`w-full max-w-5xl rounded-xl shadow p-6 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white'}`}>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+      <div className="w-full max-w-5xl bg-white rounded-xl shadow p-6">
         <h1 className="text-xl font-semibold mb-4 text-center">
           {ticker ? `${ticker} Stock Data` : 'Stock Data Viewer'} {/* Static title, dynamic ticker */}
         </h1>
@@ -99,7 +89,7 @@ function App() {
             type="text"
             value={ticker}
             onChange={handleTickerChange}
-            className={`w-full p-2 border rounded ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-white'}`}
+            className="w-full p-2 border rounded"
             placeholder="Enter stock ticker (e.g., AAPL)"
           />
         </div>
@@ -111,7 +101,7 @@ function App() {
             id="range"
             value={range}
             onChange={handleRangeChange}
-            className={`w-full p-2 border rounded ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-white'}`}
+            className="w-full p-2 border rounded"
           >
             <option value="1d">1 Day</option>
             <option value="5d">5 Days</option>
@@ -132,7 +122,7 @@ function App() {
             id="interval"
             value={interval}
             onChange={handleIntervalChange}
-            className={`w-full p-2 border rounded ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-white'}`}
+            className="w-full p-2 border rounded"
           >
             <option value="1m">1 Minute</option>
             <option value="2m">2 Minutes</option>
@@ -144,16 +134,6 @@ function App() {
             <option value="5d">5 Days</option>
             <option value="1wk">1 Week</option>
           </select>
-        </div>
-
-        {/* Dark/Light mode toggle */}
-        <div className="mb-4 flex justify-center">
-          <button
-            onClick={toggleTheme}
-            className={`px-4 py-2 rounded ${isDarkMode ? 'bg-yellow-500 text-black' : 'bg-blue-500 text-white'}`}
-          >
-            Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
-          </button>
         </div>
 
         {/* Error message */}
@@ -236,6 +216,7 @@ function App() {
             height={300}
             minConstraints={[300, 200]}
             maxConstraints={[900, 600]}
+
           >
             <Line
               data={{

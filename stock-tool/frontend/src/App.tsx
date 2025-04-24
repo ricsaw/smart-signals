@@ -147,11 +147,6 @@ function App() {
             height={400}
             minConstraints={[300, 200]}
             maxConstraints={[900, 600]}
-            resizeHandles={['s', 'e', 'se']}
-            className="border-2 border-gray-300 rounded-lg"
-            handle={
-              <span className="absolute right-0 bottom-0 w-4 h-4 bg-gray-300 rounded-full cursor-se-resize" />
-            }
           >
             <Line
               data={{

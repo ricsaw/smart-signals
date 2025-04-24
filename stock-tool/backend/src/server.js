@@ -40,6 +40,10 @@ app.get('/api/stock/:ticker', async (req, res) => {
         const stockResponse = await axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=${range}&interval=${interval}`);
         const chartData = stockResponse.data.chart.result[0];
 
+        if (!chartData) {
+            return res.status(500).json({ error: `No stock data found for ticker: ${ticker}` });
+        }
+
         const prices = chartData.indicators.quote[0].close;
         const timestamps = chartData.timestamp;
         const volumes = chartData.indicators.quote[0].volume || [];
@@ -47,6 +51,10 @@ app.get('/api/stock/:ticker', async (req, res) => {
         // Fetch options data
         const optionsResponse = await axios.get(`https://query1.finance.yahoo.com/v7/finance/options/${ticker}`);
         const optionsData = optionsResponse.data.optionChain.result[0];
+
+        if (!optionsData) {
+            return res.status(500).json({ error: `No options data found for ticker: ${ticker}` });
+        }
 
         // Extract expiration dates and options (calls/puts)
         const expirationDates = optionsData.expirationDates;
@@ -62,8 +70,8 @@ app.get('/api/stock/:ticker', async (req, res) => {
         });
 
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Failed to fetch stock or options data' });
+        console.error("Error details:", err.response || err); // Log the error response from axios
+        res.status(500).json({ error: 'Failed to fetch stock or options data', details: err.message });
     }
 });
 

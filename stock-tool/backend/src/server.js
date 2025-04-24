@@ -36,27 +36,28 @@ app.get('/api/stock/:ticker', async (req, res) => {
     }
 
     try {
-        // Fetch the stock price data
+        // Fetch stock price data
         const stockResponse = await axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=${range}&interval=${interval}`);
         const chartData = stockResponse.data.chart.result[0];
-
         const prices = chartData.indicators.quote[0].close;
         const timestamps = chartData.timestamp;
         const volumes = chartData.indicators.quote[0].volume || [];
 
-        // Fetch the options chain data
+        // Fetch options data
         const optionsResponse = await axios.get(`https://query1.finance.yahoo.com/v7/finance/options/${ticker}`);
         const optionsData = optionsResponse.data.optionChain.result[0];
 
-        const options = optionsData.options;  // This will give you the options data, such as expiration dates and calls/puts
+        // Extract expiration dates and calls/puts options data
+        const expirationDates = optionsData.expirationDates;
+        const options = optionsData.options;
 
-        res.json({ prices, timestamps, volumes, options });
+        res.json({ prices, timestamps, volumes, expirationDates, options });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Failed to fetch stock data' });
+        res.status(500).json({ error: 'Failed to fetch stock or options data' });
     }
 });
 
 app.listen(3001, () => {
-  console.log('✅ Backend running at http://localhost:3001');
+    console.log('✅ Backend running at http://localhost:3001');
 });
